@@ -26,7 +26,6 @@ from databricks.sdk.service.dashboards import GenieAPI
 import asyncio
 from botbuilder.integration.aiohttp import CloudAdapter, ConfigurationBotFrameworkAuthentication
 from botbuilder.core.integration import aiohttp_error_middleware
-from config import DefaultConfig
 
 # Log
 logging.basicConfig(level=logging.INFO)
@@ -34,6 +33,7 @@ logger = logging.getLogger(__name__)
 
 # Env vars
 load_dotenv()
+from config import DefaultConfig
 
 DATABRICKS_HOST = os.getenv("DATABRICKS_HOST")
 DATABRICKS_TOKEN = os.getenv("DATABRICKS_TOKEN")
@@ -45,6 +45,8 @@ workspace_client = WorkspaceClient(
 )
 
 CONFIG = DefaultConfig()
+# Only chats from the configured Tenant will be allowed
+ALLOWED_TENANT = DefaultConfig.APP_TENANTID
 
 genie_api = GenieAPI(workspace_client.api_client)
 
@@ -135,27 +137,34 @@ class MyBot(ActivityHandler):
     async def on_message_activity(self, turn_context: TurnContext):
         question = turn_context.activity.text
         user_id = turn_context.activity.from_property.id
-        print(user_id)
         conversation_id = self.conversation_ids.get(user_id)
+        tennantId = turn_context.activity.channel_data["tenant"]["id"]
+        if tennantId == ALLOWED_TENANT:
+            try:
+                answer, new_conversation_id = await ask_genie(question, DATABRICKS_SPACE_ID, conversation_id)
+                self.conversation_ids[user_id] = new_conversation_id
 
-        try:
-            answer, new_conversation_id = await ask_genie(question, DATABRICKS_SPACE_ID, conversation_id)
-            self.conversation_ids[user_id] = new_conversation_id
+                answer_json = json.loads(answer)
+                response = process_query_results(answer_json)
 
-            answer_json = json.loads(answer)
-            response = process_query_results(answer_json)
-
-            await turn_context.send_activity(response)
-        except json.JSONDecodeError:
-            await turn_context.send_activity("Failed to decode response from the server.")
-        except Exception as e:
-            logger.error(f"Error processing message: {str(e)}")
-            await turn_context.send_activity("An error occurred while processing your request.")
+                await turn_context.send_activity(response)
+            except json.JSONDecodeError:
+                await turn_context.send_activity("Failed to decode response from the server.")
+            except Exception as e:
+                logger.error(f"Error processing message: {str(e)}")
+                await turn_context.send_activity("An error occurred while processing your request.")
+        else:
+            await turn_context.send_activity("Your Tenant is not authorized to use this Bot.")
 
     async def on_members_added_activity(self, members_added: List[ChannelAccount], turn_context: TurnContext):
+        tennantId = turn_context.activity.channel_data["tenant"]["id"]
+        if tennantId == ALLOWED_TENANT:
+            welcome_message = "Bienvenido a Genie Bot!"
+        else:
+            welcome_message = "Your Tenant is not authorized to use this Bot."
         for member in members_added:
             if member.id != turn_context.activity.recipient.id:
-                await turn_context.send_activity("Bienvenido a Genie Bot!")
+                await turn_context.send_activity(welcome_message)
 
 BOT = MyBot()
 

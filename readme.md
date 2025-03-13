@@ -29,4 +29,4 @@ An existing Databricks workspace with [Azure Private Link back-end and front-end
 
 # Limitations and areas for improvement
 - Azure Key Vault can be used to store the Databricks PAT token
-- Authentication to the Bot should be added as described [here](https://learn.microsoft.com/en-us/azure/bot-service/bot-builder-authentication?view=azure-bot-service-4.0&tabs=userassigned%2Caadv2%2Cjavascript#register-the-microsoft-entra-id-identity-provider-with-the-bot) and then SSO to Teams can be enabled as described [here](https://learn.microsoft.com/en-us/microsoftteams/platform/bots/how-to/authentication/bot-sso-overview). Unfortunately, as of the last update to this file, there is a [bug](https://github.com/microsoft/BotBuilder-Samples/issues/3829) that prevents this from being implemented using Python.
+- The Bot code only allows interactions from users in the configured Entra ID Tenant. For more granular control, organizations would need to manage access to the Teams App as described [here](https://learn.microsoft.com/en-us/microsoftteams/app-centric-management).
