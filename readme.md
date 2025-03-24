@@ -8,9 +8,11 @@ This repository demonstrates an example scenario that allows users to interact w
 The Bot code is based on this [repository](https://github.com/carrossoni/DatabricksGenieBOT/tree/main) authored by Luiz Carrossoni.  
 
 # Pre-requisites
-An existing Databricks workspace with [Azure Private Link back-end and front-end connections](https://learn.microsoft.com/en-us/azure/databricks/security/network/classic/private-link) enabled with a [Genie Space](https://learn.microsoft.com/en-us/azure/databricks/genie/set-up) accessible via API.
+- An existing Databricks workspace with [Azure Private Link back-end and front-end connections](https://learn.microsoft.com/en-us/azure/databricks/security/network/classic/private-link) enabled with a [Genie Space](https://learn.microsoft.com/en-us/azure/databricks/genie/set-up) accessible via API.
+- An environment with a Bash shell and a recent version of the Azure CLI installed. The Bash version of the [Azure Cloud Shell](https://azure.microsoft.com/en-us/get-started/azure-portal/cloud-shell) is a fine option. 
 
 # Steps
+- Clone this repo: `git clone https://github.com/maucaro/secure_bot.git`
 - Rename `setenv-samples.sh` to `setenv.sh` and modify it with your values and to conform to your naming standards. 
 - Search for 'TO DO:' in the repository's files and adjust as necessary.
 - Run `initial.sh`
