@@ -16,5 +16,8 @@ az webapp config set --resource-group ${RG_NAME} --name ${APP_SVC_NAME} --generi
 az webapp config set --resource-group ${RG_NAME} --name ${APP_SVC_NAME} --generic-configurations "{\"AcrUserManagedIdentityID\": \"${CLIENT_ID}\"}"
 az webapp log config --name ${APP_SVC_NAME} --resource-group ${RG_NAME} --docker-container-logging filesystem
 
-# Build image TO DO
-az acr build --image ${CONTAINER_IMAGE_NAME} --registry ${REG_NAME} .
+# Set Web App port to 8080
+az webapp config appsettings set --resource-group ${RG_NAME} --name ${REG_NAME} --settings WEBSITES_PORT=8080
+
+# Build image
+az acr build --image ${CONTAINER_IMAGE_NAME} --registry ${REG_NAME} ./bot

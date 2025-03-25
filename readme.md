@@ -18,6 +18,7 @@ The Bot code is based on this [repository](https://github.com/carrossoni/Databri
 - Run `initial.sh`
 - Run `bot.sh`
 - Run `container.sh`
+- It will take a few minutes before the Web App is ready; ensure it is before proceeding. 
 - Test in Web Chat (Azure Portal -> Azure Bot instance -> Settings); if successful, continue.
 - Add Microsoft Teams Channel (Azure Portal -> Azure Bot instance -> Settings -> Channels).
 - Rename `appManifest\manifest-sample.json` to `appManifest\manifest.json` and update it with the ClientId (in the 'id' and and 'bots.botId' fiellds), and with your custom domain in 'validDomains'.
