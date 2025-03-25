@@ -12,12 +12,12 @@ The Bot code is based on this [repository](https://github.com/carrossoni/Databri
 - An environment with a Bash shell and a recent version of the Azure CLI installed. The Bash version of the [Azure Cloud Shell](https://azure.microsoft.com/en-us/get-started/azure-portal/cloud-shell) is a fine option. 
 
 # Steps
-- Clone this repo: `git clone https://github.com/maucaro/secure_bot.git`
+- Clone this repo and change directory: `git clone https://github.com/maucaro/secure_bot.git && cd secure_bot`
 - Rename `setenv-samples.sh` to `setenv.sh` and modify it with your values and to conform to your naming standards. 
 - Search for 'TO DO:' in the repository's files and adjust as necessary.
 - Run `initial.sh`
 - Run `bot.sh`
-- Run `deploy.sh` Note, if you get the following error: "An error occurred during deployment. Status Code: 504, Details: 504.0 GatewayTimeout", check the logs; most times the deployment succeeds, despite the error message. 
+- Run `container.sh`
 - Test in Web Chat (Azure Portal -> Azure Bot instance -> Settings); if successful, continue.
 - Add Microsoft Teams Channel (Azure Portal -> Azure Bot instance -> Settings -> Channels).
 - Rename `appManifest\manifest-sample.json` to `appManifest\manifest.json` and update it with the ClientId (in the 'id' and and 'bots.botId' fiellds), and with your custom domain in 'validDomains'.

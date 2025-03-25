@@ -190,10 +190,6 @@
           "siteConfig": {
             "appSettings": [
               {
-                "name": "SCM_DO_BUILD_DURING_DEPLOYMENT",
-                "value": "true"
-              },
-              {
                 "name": "MicrosoftAppType",
                 "value": "[parameters('appType')]"
               },
@@ -201,11 +197,7 @@
                 "name": "MicrosoftAppId",
                 "value": "[parameters('appId')]"
               },
-              {
-                "name": "MicrosoftAppPassword",
-                "value": "[parameters('appSecret')]"
-              },
-              {
+             {
                 "name": "MicrosoftAppTenantId",
                 "value": "[variables('appType').tenantId]"
               },
@@ -216,10 +208,6 @@
               {
                 "name": "DATABRICKS_HOST",
                 "value": "[parameters('DATABRICKS_HOST')]"
-              },
-              {
-                "name": "DATABRICKS_TOKEN",
-                "value": "[parameters('DATABRICKS_TOKEN')]"
               }
             ],
             "cors": {

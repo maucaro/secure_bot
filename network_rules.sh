@@ -23,6 +23,9 @@ az network firewall network-rule create --resource-group ${RG_NAME} --collection
 # This rule will enable traffic to all IP addresses associated with Azure Databricks service tag
 az network firewall network-rule create --resource-group ${RG_NAME} --collection-name coll-${PREFIX}-network-rules --source-addresses ${VNET_CIDR} --dest-addr AzureDatabricks --destination-ports '*' --firewall-name ${FIREWALL_NAME} --name rl-AzureDatabricks --protocols TCP
 
+# This rule will enable traffic to all IP addresses associated with Azure Container Registry service tag
+az network firewall network-rule create --resource-group ${RG_NAME} --collection-name coll-${PREFIX}-network-rules --source-addresses ${VNET_CIDR} --dest-addr AzureContainerRegistry --destination-ports '*' --firewall-name ${FIREWALL_NAME} --name rl-AzureContainerRegistry --protocols TCP
+
 # Create an application rule collection and add rules to it. 
 # This rule allows traffic to botframework.com
 az network firewall application-rule create --firewall-name ${FIREWALL_NAME} --resource-group ${RG_NAME} --collection-name coll-${PREFIX}-app-rules --priority 200 --action Allow --name rl-botframework --source-addresses ${VNET_CIDR} --protocols https=443 --target-fqdns '*.botframework.com'

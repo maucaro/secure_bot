@@ -36,12 +36,12 @@ load_dotenv()
 from config import DefaultConfig
 
 DATABRICKS_HOST = os.getenv("DATABRICKS_HOST")
-DATABRICKS_TOKEN = os.getenv("DATABRICKS_TOKEN")
 DATABRICKS_SPACE_ID = os.getenv("DATABRICKS_SPACE_ID")
 
 workspace_client = WorkspaceClient(
     host=DATABRICKS_HOST,
-    token=DATABRICKS_TOKEN
+    azure_tenant_id=DefaultConfig.APP_TENANTID,
+    auth_type='azure-cli'
 )
 
 CONFIG = DefaultConfig()

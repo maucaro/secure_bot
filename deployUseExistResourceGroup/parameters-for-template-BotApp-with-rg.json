@@ -49,9 +49,6 @@
       },
       "DATABRICKS_HOST": {
         "value": ""
-      },
-      "DATABRICKS_TOKEN": {
-        "value": ""
       }
     }
   }
