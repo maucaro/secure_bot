@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if az login --identity --client-id 'c11c8c88-3bd4-40e4-9b49-dc5a1721e46b'; then
+if az login --identity --client-id ${MicrosoftAppId}; then
     echo az login successful 
 else
     echo az login failed

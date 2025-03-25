@@ -17,7 +17,7 @@ az webapp config set --resource-group ${RG_NAME} --name ${APP_SVC_NAME} --generi
 az webapp log config --name ${APP_SVC_NAME} --resource-group ${RG_NAME} --docker-container-logging filesystem
 
 # Set Web App port to 8080
-az webapp config appsettings set --resource-group ${RG_NAME} --name ${REG_NAME} --settings WEBSITES_PORT=8080
+az webapp config appsettings set --resource-group ${RG_NAME} --name ${APP_SVC_NAME} --settings WEBSITES_PORT=8080
 
 # Build image
 az acr build --image ${CONTAINER_IMAGE_NAME} --registry ${REG_NAME} ./bot

@@ -17,9 +17,8 @@ The Bot code is based on this [repository](https://github.com/carrossoni/Databri
 - Search for 'TO DO:' in the repository's files and adjust as necessary.
 - Run `initial.sh`
 - Run `bot.sh`
-- Run `container.sh`
-- It will take a few minutes before the Web App is ready; ensure it is before proceeding. 
-- Test in Web Chat (Azure Portal -> Azure Bot instance -> Settings); if successful, continue.
+- Run `container.sh`. It will take a few minutes before the Web App is ready; ensure it is before testing. 
+- Ensure the Azure Managed Identity has appropriate access to the Genie Space; refer to this [link](https://docs.databricks.com/aws/en/genie/set-up#required-permissions).
 - Add Microsoft Teams Channel (Azure Portal -> Azure Bot instance -> Settings -> Channels).
 - Rename `appManifest\manifest-sample.json` to `appManifest\manifest.json` and update it with the ClientId (in the 'id' and and 'bots.botId' fiellds), and with your custom domain in 'validDomains'.
 - Zip the files in the `appManifest` folder, upload the app to Teams and test it; if successful, continue.
@@ -31,5 +30,4 @@ The Bot code is based on this [repository](https://github.com/carrossoni/Databri
 - Change Bot configuration's endpoint to custom domain
 
 # Limitations and areas for improvement
-- Azure Key Vault can be used to store the Databricks PAT token
 - The Bot code only allows interactions from users in the configured Entra ID Tenant. For more granular control, organizations would need to manage access to the Teams App as described [here](https://learn.microsoft.com/en-us/microsoftteams/app-centric-management).

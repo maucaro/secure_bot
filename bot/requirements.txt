@@ -13,3 +13,4 @@ botbuilder-dialogs
 botbuilder-integration-aiohttp
 databricks-sdk
 azure-identity
+gunicorn
