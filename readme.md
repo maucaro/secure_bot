@@ -18,7 +18,6 @@ The Bot code is based on this [repository](https://github.com/carrossoni/Databri
 - Run `initial.sh`
 - Run `bot.sh`
 - Run `deploy.sh` Note, if you get the following error: "An error occurred during deployment. Status Code: 504, Details: 504.0 GatewayTimeout", check the logs; most times the deployment succeeds, despite the error message. 
-- Ensure the Azure Managed Identity has appropriate access to the Genie Space; refer to this [link](https://docs.databricks.com/aws/en/genie/set-up#required-permissions).
 - Add Microsoft Teams Channel (Azure Portal -> Azure Bot instance -> Settings -> Channels).
 - Rename `appManifest\manifest-sample.json` to `appManifest\manifest.json` and update it with the ClientId (in the 'id' and and 'bots.botId' fiellds), and with your custom domain in 'validDomains'.
 - Zip the files in the `appManifest` folder, upload the app to Teams and test it; if successful, continue.
