@@ -8,7 +8,7 @@ az group create --name ${RG_NAME} --location ${LOCATION}
 az identity create --resource-group ${RG_NAME} --name ${MANAGED_IDENTITY}
 
 # Create a virtual network with a subnet for the firewall
-az network vnet create --name ${VNET_NAME} --resource-group ${RG_NAME} --location ${LOCATION} --address-prefix ${VNET_CIDR} --subnet-name AzureFirewallSubnet --subnet-prefix ${FW_SUBNET_CIDR}
+az network vnet create --name ${VNET_NAME} --resource-group ${RG_NAME} --location ${LOCATION} --address-prefix ${VNET_CIDR} --subnet-name ${SUBNET_FW_NAME} --subnet-prefix ${FW_SUBNET_CIDR}
 
 # Add a subnet for the Virtual network integration
 az network vnet subnet create --name ${SUBNET_INT_NAME} --resource-group ${RG_NAME} --vnet-name ${VNET_NAME} --address-prefix ${INTEGRATION_SUBNET_CIDR}
