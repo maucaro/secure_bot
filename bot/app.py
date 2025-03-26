@@ -138,7 +138,7 @@ class MyBot(ActivityHandler):
         question = turn_context.activity.text
         user_id = turn_context.activity.from_property.id
         conversation_id = self.conversation_ids.get(user_id)
-        tennantId = turn_context.activity.channel_data["tenant"]["id"]
+        tennantId = turn_context.activity.channel_data.get("tenant", {}).get("id", "")
         if tennantId == ALLOWED_TENANT:
             try:
                 answer, new_conversation_id = await ask_genie(question, DATABRICKS_SPACE_ID, conversation_id)
@@ -157,7 +157,7 @@ class MyBot(ActivityHandler):
             await turn_context.send_activity("Your Tenant is not authorized to use this Bot.")
 
     async def on_members_added_activity(self, members_added: List[ChannelAccount], turn_context: TurnContext):
-        tennantId = turn_context.activity.channel_data["tenant"]["id"]
+        tennantId = "" if turn_context.activity.channel_data is None else turn_context.activity.channel_data.get("tenant", {}).get("id", "")
         if tennantId == ALLOWED_TENANT:
             welcome_message = "Bienvenido a Genie Bot!"
         else:
