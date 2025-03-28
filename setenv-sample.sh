@@ -21,17 +21,19 @@ export SVC_PLAN_NAME=${PREFIX}'-sp'
 export APP_SVC_NAME_LOWER=$(echo $APP_SVC_NAME | tr '[:upper:]' '[:lower:]')
 export BOT_ENDPOINT='https://'${APP_SVC_NAME_LOWER}'.azurewebsites.net/api/messages'
 export TENANT_ID=$(az account show --query "tenantId" --output tsv)
+export REG_NAME=${PREFIX_LOWER}'reg'
+export CONTAINER_IMAGE_NAME=${REG_NAME}'.azurecr.io/'${PREFIX_LOWER}'/appcontainer:latest'
 
 # TO DO: If networking parameters above change, the following values may need to be changed
 export AS_PRIVATE_ADDR='10.0.3.4'
 export FW_INT_ADD='10.0.1.4'
 
-# Databricks (existing) resources
+# TO DO: Databricks (existing) resources
 export DBX_RG_NAME='rg-GeniePoc'
 export DBX_VNET_NAME='databricks-vnet'
 export DBX_PL_DNS_ZONE='privatelink.azuredatabricks.net'
 
-# Databricks Workspace and Genie settings
+# TO DO: Databricks Workspace and Genie settings; DATABRICKS_TOKEN should be commented or set to an empty string if using Managed Identity
 export DATABRICKS_SPACE_ID='REPLACE'
 export DATABRICKS_HOST="REPLACE.azuredatabricks.net"
-export DATABRICKS_TOKEN="REPLACE"
+export DATABRICKS_TOKEN="REPLACE or empty if using Managed Identity"

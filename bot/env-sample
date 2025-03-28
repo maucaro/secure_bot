@@ -1,0 +1,9 @@
+DATABRICKS_SPACE_ID="REPLACE"
+DATABRICKS_HOST="REPLACE.azuredatabricks.net"
+DATABRICKS_TOKEN="Replace is using PAT for authentication; leave blank otherwise"
+
+# Leave the following empty for local testing
+MicrosoftAppId=""
+MicrosoftAppPassword=""
+MicrosoftAppType=""
+MicrosoftAppTenantId=""

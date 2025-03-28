@@ -12,8 +12,6 @@ Note: This is experimental code and is not intended for production use.
 """
 
 import os
-import sys
-import traceback
 import json
 import logging
 from typing import Dict, List, Optional
@@ -35,18 +33,12 @@ logger = logging.getLogger(__name__)
 load_dotenv()
 from config import DefaultConfig
 
-DATABRICKS_HOST = os.getenv("DATABRICKS_HOST")
-DATABRICKS_TOKEN = os.getenv("DATABRICKS_TOKEN")
 DATABRICKS_SPACE_ID = os.getenv("DATABRICKS_SPACE_ID")
-
-workspace_client = WorkspaceClient(
-    host=DATABRICKS_HOST,
-    token=DATABRICKS_TOKEN
-)
-
 CONFIG = DefaultConfig()
 # Only chats from the configured Tenant will be allowed
 ALLOWED_TENANT = DefaultConfig.APP_TENANTID
+
+workspace_client = WorkspaceClient()
 
 genie_api = GenieAPI(workspace_client.api_client)
 
@@ -169,9 +161,7 @@ class MyBot(ActivityHandler):
 BOT = MyBot()
 
 async def messages(req: web.Request) -> web.Response:
-    if "application/json" in req.headers["Content-Type"]:
-        body = await req.json()
-    else:
+    if "application/json" not in req.headers["Content-Type"]:
         return web.Response(status=415)
     try:
         response = await ADAPTER.process(req, BOT)
@@ -183,11 +173,7 @@ async def messages(req: web.Request) -> web.Response:
         # Print the exception type and message
         logger.error(f"Exception Type: {type(e).__name__}")
         logger.error(f"Exception Message: {e}")
-
-        # Print the full traceback
-        logger.error("Traceback:")
-        exc_type, exc_value, exc_traceback = sys.exc_info()
-        logger.error("An error occurred: %s", "".join(traceback.format_exception(exc_type, exc_value, exc_traceback)))
+        return web.Response(status=500)
 
 APP = web.Application(middlewares=[aiohttp_error_middleware])
 APP.router.add_post("/api/messages", messages)
