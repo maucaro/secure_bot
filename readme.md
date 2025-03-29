@@ -12,7 +12,7 @@ The Bot code is based on this [repository](https://github.com/carrossoni/Databri
 - An environment with a Bash shell and a recent version of the Azure CLI installed. The Bash version of the [Azure Cloud Shell](https://azure.microsoft.com/en-us/get-started/azure-portal/cloud-shell) is an option. 
 
 # Authentication
-There are two authentication options from the Bot Application to the Genie API: an Azure Managed Identity or a Databricks Personal Access Token (PAT). The former is recommended and, if used, the the environment variable `DATABRICKS_TOKEN` should not be set, or it can be set to an empty string. Conversely, if using a PAT, set said variable appropriately. 
+There are two authentication options from the Bot Application to the Genie API: an Azure Managed Identity or a Databricks Personal Access Token (PAT). The former is recommended and, if used, the environment variable `DATABRICKS_TOKEN` should be set to an empty string. Conversely, if using a PAT, set said variable appropriately. 
 
 # Local Testing
 The bot application can be tested and debugged locally. To do so, rename bot/env-sample to .env and replace the values with yours. The Bot Framework Emulator can be used as a client. Refer to this [link](https://learn.microsoft.com/en-us/azure/bot-service/bot-service-debug-emulator?view=azure-bot-service-4.0&tabs=python) for guidance. If using an Azure Managed Identity for authentication, ensure you are logged in to Azure (az login) with a user that has access to the Genie Space API. 
@@ -23,9 +23,9 @@ The bot application can be tested and debugged locally. To do so, rename bot/env
 - Rename `setenv-samples.sh` to `setenv.sh` and modify it with your values and to conform to your naming standards. 
 - Search for 'TO DO:' in the repository's files and adjust as necessary.
 - Run `initial.sh`
+- Run `build.sh`
 - Run `bot.sh`
-- Run `container.sh`. It will take a few minutes before the Web App is ready; ensure it is before testing. 
-- If using an Azure Managed Identity, ensure it has appropriate access to the Genie Space; refer to this [link](https://docs.databricks.com/aws/en/genie/set-up#required-permissions).
+- If using an Azure Managed Identity, ensure it has appropriate permissions to the Genie Space; refer to this [link](https://docs.databricks.com/aws/en/genie/set-up#required-permissions).
 - Add Microsoft Teams Channel (Azure Portal -> Azure Bot instance -> Settings -> Channels).
 - Rename `appManifest\manifest-sample.json` to `appManifest\manifest.json` and update it with the ClientId of the Managed Identity (in the 'id' and and 'bots.botId' fiellds), and with your custom domain in 'validDomains'.
 - Zip the files in the `appManifest` folder, upload the app to Teams and test it; if successful, continue.
@@ -35,7 +35,7 @@ The bot application can be tested and debugged locally. To do so, rename bot/env
 - Run `route_table.sh`
 - Run `network_rules.sh`
 - Run `peering.sh`
-- Change Bot configuration's endpoint to custom domain
+- Change Bot configuration's endpoint to the custom domain
 
 # Limitations and areas for improvement
 - If using PAT for authentication, Azure Key Vault should be used to store it.

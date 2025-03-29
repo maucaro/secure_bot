@@ -49,7 +49,7 @@
       },
       "appType": {
         "type": "string",
-        "defaultValue": "MultiTenant",
+        "defaultValue": "UserAssignedMSI",
         "allowedValues": [
           "MultiTenant",
           "SingleTenant",
@@ -101,6 +101,9 @@
       },
       "DATABRICKS_TOKEN": {
         "type": "string"
+      },
+      "ContainerImageName": {
+        "type": "string"        
       }
     },
     "variables": {
@@ -188,6 +191,8 @@
           "dailyMemoryTimeQuota": 0,
           "httpsOnly": false,
           "siteConfig": {
+            "acrUseManagedIdentityCreds": true,
+            "acrUserManagedIdentityID": "[parameters('appId')]",
             "appSettings": [
               {
                 "name": "SCM_DO_BUILD_DURING_DEPLOYMENT",
@@ -220,6 +225,10 @@
               {
                 "name": "DATABRICKS_TOKEN",
                 "value": "[parameters('DATABRICKS_TOKEN')]"
+              },
+              {
+                "name": "WEBSITES_PORT",
+                "value": "8080"
               }
             ],
             "cors": {
@@ -256,7 +265,7 @@
           "phpVersion": "",
           "pythonVersion": "",
           "nodeVersion": "",
-          "linuxFxVersion": "PYTHON|3.9",
+          "linuxFxVersion": "[concat('DOCKER|', parameters('ContainerImageName'))]",
           "requestTracingEnabled": false,
           "remoteDebuggingEnabled": false,
           "remoteDebuggingVersion": "VS2022",
