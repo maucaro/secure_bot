@@ -114,6 +114,23 @@
           "isIsolated": false
         },
         "dependsOn": []
+      },
+      {
+        "type": "Microsoft.BotService/botServices/channels",
+        "apiVersion": "2023-09-15-preview",
+        "name": "[concat(parameters('azureBotId'), '/MsTeamsChannel')]",
+        "dependsOn": [
+          "[resourceId('Microsoft.BotService/botServices', parameters('azureBotId'))]"
+        ],
+        "kind": "azurebot",
+        "location": "[parameters('azureBotRegion')]",
+        "properties": {
+          "channelName": "MsTeamsChannel",
+          "properties": {
+            "acceptedTerms": true,
+            "isEnabled": true
+          }
+        }
       }
     ]
   }
