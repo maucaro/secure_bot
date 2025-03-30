@@ -24,11 +24,11 @@ The bot application can be tested and debugged locally. To do so, rename bot/env
 - Locally test the Bot application (optional). 
 - Rename `setenv-samples.sh` to `setenv.sh` and modify it with your values and to conform to your naming standards. 
 - Search for 'TO DO:' in the repository's files and adjust as necessary.
-- Run `initial.sh`
-- Run `build.sh`
-- Run `bot.sh`
+- Run `initial.sh`; this creates the Resource Group, Managed Identity and the Azure Container Registry.
+- Run `build.sh`; this creates the custom Docker image by using the Azure Container Registry.
+- Run `bot.sh`; this creates the App Service Plan, the App Service and the Bot definition. The App Service will pull the custom image and run it. It will take a few minutes before the app is operational. After a few minutes, you may monitor the progress through App Service -> Deployment Center -> Deployment -> Logs. 
 - If using an Azure Managed Identity, ensure it has appropriate permissions to the Genie Space; refer to this [link](https://docs.databricks.com/aws/en/genie/set-up#required-permissions).
-- Rename `appManifest\manifest-sample.json` to `appManifest\manifest.json` and update it with the ClientId of the Managed Identity (in the 'id' and and 'bots.botId' fiellds), and with your custom domain in 'validDomains'.
+- Rename `appManifest\manifest-sample.json` to `appManifest\manifest.json` and update it with the ClientId of the Managed Identity (in the 'id' and and 'bots.botId' fiellds), and with your custom domain in 'validDomains'. Modify other settings according to your needs and preferences. 
 - Zip the files in the `appManifest` folder, upload the app to Teams and test it; if successful, continue.
 - Run `network.sh`
 - Map a custom domain for the Web App; add a DNS A record pointing the custom domain to the Firewall's public IP. 
@@ -40,4 +40,5 @@ The bot application can be tested and debugged locally. To do so, rename bot/env
 
 # Limitations and areas for improvement
 - If using PAT for authentication, Azure Key Vault should be used to store it.
+- Access to ACR may be further restricted using this [guidance](https://learn.microsoft.com/en-us/azure/container-registry/container-registry-private-link).
 - The Bot code only allows interactions from users in the configured Entra ID Tenant. For more granular control, organizations would need to manage access to the Teams App as described [here](https://learn.microsoft.com/en-us/microsoftteams/app-centric-management).
