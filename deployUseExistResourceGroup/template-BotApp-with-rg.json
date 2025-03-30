@@ -189,16 +189,16 @@
           "hostNamesDisabled": false,
           "containerSize": 0,
           "dailyMemoryTimeQuota": 0,
-          "httpsOnly": false,
+          "httpsOnly": true,
           "siteConfig": {
+            "location": "[parameters('newAppServicePlanLocation')]",
             "acrUseManagedIdentityCreds": true,
             "acrUserManagedIdentityID": "[parameters('appId')]",
+            "linuxFxVersion": "[concat('DOCKER|', parameters('ContainerImageName'))]",
+            "httpLoggingEnabled": true,
+            "logsDirectorySizeLimit": 35,
             "appSettings": [
-              {
-                "name": "SCM_DO_BUILD_DURING_DEPLOYMENT",
-                "value": "true"
-              },
-              {
+             {
                 "name": "MicrosoftAppType",
                 "value": "[parameters('appType')]"
               },
@@ -230,77 +230,9 @@
                 "name": "WEBSITES_PORT",
                 "value": "8080"
               }
-            ],
-            "cors": {
-              "allowedOrigins": [
-                "https://botservice.hosting.portal.azure.net",
-                "https://hosting.onecloud.azure-test.net/"
-              ]
-            }
+            ]
           }
         }
-      },
-      {
-        "type": "Microsoft.Web/sites/config",
-        "apiVersion": "2016-08-01",
-        "name": "[concat(parameters('appServiceName'), '/web')]",
-        "location": "[variables('servicePlanLocation')]",
-        "dependsOn": [
-          "[resourceId('Microsoft.Web/sites', parameters('appServiceName'))]"
-        ],
-        "properties": {
-          "numberOfWorkers": 1,
-          "defaultDocuments": [
-            "Default.htm",
-            "Default.html",
-            "Default.asp",
-            "index.htm",
-            "index.html",
-            "iisstart.htm",
-            "default.aspx",
-            "index.php",
-            "hostingstart.html"
-          ],
-          "netFrameworkVersion": "v4.0",
-          "phpVersion": "",
-          "pythonVersion": "",
-          "nodeVersion": "",
-          "linuxFxVersion": "[concat('DOCKER|', parameters('ContainerImageName'))]",
-          "requestTracingEnabled": false,
-          "remoteDebuggingEnabled": false,
-          "remoteDebuggingVersion": "VS2022",
-          "httpLoggingEnabled": true,
-          "logsDirectorySizeLimit": 35,
-          "detailedErrorLoggingEnabled": false,
-          "publishingUsername": "[concat('$', parameters('appServiceName'))]",
-          "scmType": "None",
-          "use32BitWorkerProcess": true,
-          "webSocketsEnabled": false,
-          "alwaysOn": false,
-          "managedPipelineMode": "Integrated",
-          "virtualApplications": [
-            {
-              "virtualPath": "/",
-              "physicalPath": "site\\wwwroot",
-              "preloadEnabled": false,
-              "virtualDirectories": null
-            }
-          ],
-          "winAuthAdminState": 0,
-          "winAuthTenantState": 0,
-          "customAppPoolIdentityAdminState": false,
-          "customAppPoolIdentityTenantState": false,
-          "loadBalancing": "LeastRequests",
-          "routingRules": [],
-          "experiments": {
-            "rampUpRules": []
-          },
-          "autoHealEnabled": false,
-          "vnetName": "",
-          "minTlsVersion": "1.2",
-          "ftpsState": "Disabled",
-          "reservedInstanceCount": 0
-        }
-      }  
+      }
     ]
   }
