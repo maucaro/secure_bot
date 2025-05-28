@@ -5,7 +5,7 @@ source ./setenv.sh
 # Destination address is that of the firewall. 
 # The translated address is that of the app service's private link.
 DEST_ADDR=$(az network public-ip show --name ${FIREWALL_NAME}-pip --resource-group ${RG_NAME} --query "ipAddress" | tr -d '"')  
-az network firewall nat-rule create --resource-group ${RG_NAME} --collection-name coll-${PREFIX}-nat-rules --priority 200 --action DNAT --source-addresses ${TEAMS_IP_RANGE} --dest-addr ${DEST_ADDR} --destination-ports 443 --firewall-name ${FIREWALL_NAME} --name rl-ip2appservice --protocols TCP --translated-address ${AS_PRIVATE_ADDR} --translated-port 443
+az network firewall nat-rule create --resource-group ${RG_NAME} --collection-name coll-${PREFIX}-nat-rules --priority 200 --action DNAT --source-addresses ${TEAMS_IP_RANGE[@]} --dest-addr ${DEST_ADDR} --destination-ports 443 --firewall-name ${FIREWALL_NAME} --name rl-ip2appservice --protocols TCP --translated-address ${AS_PRIVATE_ADDR} --translated-port 443
 # TO DO: In order to debug (az webapp log), a NAT rule is needed that allows traffic from the source(s)
 # az network firewall nat-rule create --resource-group ${RG_NAME} --collection-name coll-${PREFIX}-nat-rules --source-addresses <my-ip> --dest-addr ${DEST_ADDR} --destination-ports 443 --firewall-name ${FIREWALL_NAME} --name rl-myip2appservice --protocols TCP --translated-address ${AS_PRIVATE_ADDR} --translated-port 443
 
