@@ -15,7 +15,7 @@ import os
 import json
 import logging
 from typing import Dict, List, Optional
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 from aiohttp import web
 from botbuilder.core import ActivityHandler, TurnContext
 from botbuilder.schema import ChannelAccount
@@ -30,7 +30,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Env vars
-load_dotenv()
+#load_dotenv()
 from config import DefaultConfig
 
 DATABRICKS_SPACE_ID = os.getenv("DATABRICKS_SPACE_ID")

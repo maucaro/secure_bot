@@ -56,7 +56,6 @@ pyasn1_modules==0.4.1
 pycparser==2.22
 PyJWT==2.10.1
 python-dateutil==2.9.0.post0
-python-dotenv==1.0.1
 pytz==2025.1
 recognizers-text==1.0.2a2
 recognizers-text-choice==1.0.2a2
