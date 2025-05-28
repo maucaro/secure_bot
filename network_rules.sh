@@ -25,7 +25,7 @@ az network firewall network-rule create --resource-group ${RG_NAME} --collection
 az network firewall network-rule create --resource-group ${RG_NAME} --collection-name coll-${PREFIX}-network-rules --source-addresses ${VNET_CIDR} --dest-addr AzureContainerRegistry --destination-ports '*' --firewall-name ${FIREWALL_NAME} --name rl-AzureContainerRegistry --protocols TCP
 
 # Create an application rule collection. 
-# This rule allows traffic to botframework.com
+# This rule allows traffic to botframework.com; see: https://learn.microsoft.com/en-us/azure/bot-service/bot-service-resources-faq-security?view=azure-bot-service-4.0#which-specific-urls-do-i-need-to-allowlist-in-my-corporate-firewall-to-access-bot-framework-services
 az network firewall application-rule create --firewall-name ${FIREWALL_NAME} --resource-group ${RG_NAME} --collection-name coll-${PREFIX}-app-rules --priority 200 --action Allow --name rl-botframework --source-addresses ${VNET_CIDR} --protocols https=443 --target-fqdns '*.botframework.com'
 # This rule is needed for `az login` to succeed; see: https://github.com/starkfell/100DaysOfIaC/blob/master/articles/day.61.azure.cli.behind.an.azure.firewall.md
 az network firewall application-rule create --firewall-name ${FIREWALL_NAME} --resource-group ${RG_NAME} --collection-name coll-${PREFIX}-app-rules --name rl-azure-mgmt --source-addresses ${VNET_CIDR} --protocols https=443 http=80 --target-fqdns 'management.azure.com'
