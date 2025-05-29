@@ -2,7 +2,7 @@
 source ./setenv.sh
 
 # Disable private endpoint network policies (this step is not required if you're using the Azure portal)
-az network vnet subnet update --name ${SUBNET_PVT_NAME} --resource-group ${RG_NAME} --vnet-name ${VNET_NAME} --disable-private-endpoint-network-policies true
+az network vnet subnet update --name ${SUBNET_PVT_NAME} --resource-group ${RG_NAME} --vnet-name ${VNET_NAME} --private-endpoint-network-policies Disabled
 
 # Create the private endpoint
 RESOURCE_ID=$(az resource show --name ${APP_SVC_NAME} --resource-group ${RG_NAME} --resource-type Microsoft.web/sites --query "id" | tr -d '"')

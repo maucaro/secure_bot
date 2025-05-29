@@ -16,7 +16,7 @@ az network firewall update --name ${FIREWALL_NAME} --resource-group ${RG_NAME} -
 az network vnet update --name ${VNET_NAME} --resource-group ${RG_NAME} --dns-servers ${FW_INT_ADD}
 
 # Create a public IP for the firewall
-az network public-ip create --name ${FIREWALL_NAME}-pip --resource-group ${RG_NAME} --location ${LOCATION} --allocation-method static --sku standard
+az network public-ip create --name ${FIREWALL_NAME}-pip --resource-group ${RG_NAME} --location ${LOCATION} --allocation-method static --sku standard --zone 1 2 3 
 
 # Associate the IP with the firewall
 az network firewall ip-config create --firewall-name ${FIREWALL_NAME} --name ${FIREWALL_NAME}-Config --public-ip-address ${FIREWALL_NAME}-pip --resource-group ${RG_NAME} --vnet-name ${VNET_NAME}
